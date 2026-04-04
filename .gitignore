@@ -1,0 +1,6 @@
+# Only include labs — exclude everything else
+*
+!.gitignore
+!README.md
+!labs/
+!labs/**
