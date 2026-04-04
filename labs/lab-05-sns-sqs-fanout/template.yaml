@@ -1,0 +1,187 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Transform: AWS::Serverless-2016-10-31
+
+Description: Lab 05 – Event Fan-Out with SNS & SQS
+
+Globals:
+  Function:
+    Runtime: python3.12
+    MemorySize: 256
+    Timeout: 30
+    Tracing: Active
+    Environment:
+      Variables:
+        LOG_LEVEL: INFO
+
+Resources:
+  # ── SNS Topic ──────────────────────────────────────────────────────────────
+  OrderEventsTopic:
+    Type: AWS::SNS::Topic
+    Properties:
+      TopicName: order-events
+      DisplayName: Order Events
+
+  # ── Dead-Letter Queues ──────────────────────────────────────────────────────
+  EmailDLQ:
+    Type: AWS::SQS::Queue
+    Properties:
+      QueueName: email-dlq
+      MessageRetentionPeriod: 1209600  # 14 days
+
+  WarehouseDLQ:
+    Type: AWS::SQS::Queue
+    Properties:
+      QueueName: warehouse-dlq
+      MessageRetentionPeriod: 1209600
+
+  # ── SQS Queues ──────────────────────────────────────────────────────────────
+  EmailQueue:
+    Type: AWS::SQS::Queue
+    Properties:
+      QueueName: email-notification-queue
+      VisibilityTimeout: 60
+      RedrivePolicy:
+        deadLetterTargetArn: !GetAtt EmailDLQ.Arn
+        maxReceiveCount: 3
+
+  WarehouseQueue:
+    Type: AWS::SQS::Queue
+    Properties:
+      QueueName: warehouse-update-queue
+      VisibilityTimeout: 60
+      RedrivePolicy:
+        deadLetterTargetArn: !GetAtt WarehouseDLQ.Arn
+        maxReceiveCount: 3
+
+  # ── SNS Subscriptions ───────────────────────────────────────────────────────
+  EmailQueueSubscription:
+    Type: AWS::SNS::Subscription
+    Properties:
+      TopicArn: !Ref OrderEventsTopic
+      Protocol: sqs
+      Endpoint: !GetAtt EmailQueue.Arn
+      # Email consumer receives ALL event types
+      RawMessageDelivery: true
+
+  WarehouseQueueSubscription:
+    Type: AWS::SNS::Subscription
+    Properties:
+      TopicArn: !Ref OrderEventsTopic
+      Protocol: sqs
+      Endpoint: !GetAtt WarehouseQueue.Arn
+      RawMessageDelivery: true
+      # Warehouse consumer only receives order.created events
+      FilterPolicy:
+        eventType:
+          - order.created
+
+  # ── SQS Queue Policies (allow SNS to send) ─────────────────────────────────
+  EmailQueuePolicy:
+    Type: AWS::SQS::QueuePolicy
+    Properties:
+      Queues: [!Ref EmailQueue]
+      PolicyDocument:
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: sns.amazonaws.com
+            Action: sqs:SendMessage
+            Resource: !GetAtt EmailQueue.Arn
+            Condition:
+              ArnEquals:
+                aws:SourceArn: !Ref OrderEventsTopic
+
+  WarehouseQueuePolicy:
+    Type: AWS::SQS::QueuePolicy
+    Properties:
+      Queues: [!Ref WarehouseQueue]
+      PolicyDocument:
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: sns.amazonaws.com
+            Action: sqs:SendMessage
+            Resource: !GetAtt WarehouseQueue.Arn
+            Condition:
+              ArnEquals:
+                aws:SourceArn: !Ref OrderEventsTopic
+
+  # ── Publisher Lambda ────────────────────────────────────────────────────────
+  PublisherFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: order-event-publisher
+      CodeUri: src/publisher/
+      Handler: app.handler
+      Description: Publishes order events to SNS
+      Environment:
+        Variables:
+          TOPIC_ARN: !Ref OrderEventsTopic
+      Policies:
+        - SNSPublishMessagePolicy:
+            TopicName: !GetAtt OrderEventsTopic.TopicName
+
+  # ── Email Consumer Lambda ───────────────────────────────────────────────────
+  EmailConsumerFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: email-notification-consumer
+      CodeUri: src/email_consumer/
+      Handler: app.handler
+      Description: Processes email notification messages from SQS
+      Events:
+        EmailQueueEvent:
+          Type: SQS
+          Properties:
+            Queue: !GetAtt EmailQueue.Arn
+            BatchSize: 10
+            FunctionResponseTypes:
+              - ReportBatchItemFailures
+
+  # ── Warehouse Consumer Lambda ───────────────────────────────────────────────
+  WarehouseConsumerFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: warehouse-update-consumer
+      CodeUri: src/warehouse_consumer/
+      Handler: app.handler
+      Description: Processes warehouse update messages from SQS
+      Events:
+        WarehouseQueueEvent:
+          Type: SQS
+          Properties:
+            Queue: !GetAtt WarehouseQueue.Arn
+            BatchSize: 10
+            FunctionResponseTypes:
+              - ReportBatchItemFailures
+
+  # ── CloudWatch Alarm on Email DLQ ──────────────────────────────────────────
+  EmailDLQAlarm:
+    Type: AWS::CloudWatch::Alarm
+    Properties:
+      AlarmName: email-dlq-messages
+      AlarmDescription: Messages in email DLQ – processing failures
+      Namespace: AWS/SQS
+      MetricName: ApproximateNumberOfMessagesVisible
+      Dimensions:
+        - Name: QueueName
+          Value: !GetAtt EmailDLQ.QueueName
+      Statistic: Sum
+      Period: 300
+      EvaluationPeriods: 1
+      Threshold: 1
+      ComparisonOperator: GreaterThanOrEqualToThreshold
+      TreatMissingData: notBreaching
+
+Outputs:
+  TopicArn:
+    Description: SNS topic ARN
+    Value: !Ref OrderEventsTopic
+
+  EmailQueueUrl:
+    Description: Email SQS queue URL
+    Value: !Ref EmailQueue
+
+  WarehouseQueueUrl:
+    Description: Warehouse SQS queue URL
+    Value: !Ref WarehouseQueue

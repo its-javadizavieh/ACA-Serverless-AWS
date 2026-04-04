@@ -1,0 +1,157 @@
+{
+  "Comment": "Lab 07 – Order Processing Workflow",
+  "StartAt": "ValidateOrder",
+  "States": {
+    "ValidateOrder": {
+      "Type": "Task",
+      "Resource": "${ValidateOrderFunctionArn}",
+      "ResultPath": "$.validation",
+      "Retry": [
+        {
+          "ErrorEquals": ["Lambda.ServiceException", "Lambda.AWSLambdaException"],
+          "IntervalSeconds": 2,
+          "MaxAttempts": 2,
+          "BackoffRate": 2
+        }
+      ],
+      "Catch": [
+        {
+          "ErrorEquals": ["ValidationError"],
+          "ResultPath": "$.error",
+          "Next": "OrderInvalid"
+        }
+      ],
+      "Next": "ReserveInventory"
+    },
+    "ReserveInventory": {
+      "Type": "Map",
+      "ItemsPath": "$.items",
+      "MaxConcurrency": 5,
+      "Parameters": {
+        "item.$": "$$.Map.Item.Value",
+        "orderId.$": "$.orderId"
+      },
+      "Iterator": {
+        "StartAt": "ReserveItem",
+        "States": {
+          "ReserveItem": {
+            "Type": "Pass",
+            "Parameters": {
+              "productId.$": "$.item.productId",
+              "qty.$": "$.item.qty",
+              "reserved": true
+            },
+            "End": true
+          }
+        }
+      },
+      "ResultPath": "$.reservations",
+      "Next": "ProcessPayment"
+    },
+    "ProcessPayment": {
+      "Type": "Task",
+      "Resource": "${ProcessPaymentFunctionArn}",
+      "ResultPath": "$.payment",
+      "Retry": [
+        {
+          "ErrorEquals": ["TransientPaymentError"],
+          "IntervalSeconds": 2,
+          "MaxAttempts": 3,
+          "BackoffRate": 2,
+          "JitterStrategy": "FULL"
+        }
+      ],
+      "Catch": [
+        {
+          "ErrorEquals": ["PaymentDeclinedException"],
+          "ResultPath": "$.error",
+          "Next": "ReleaseInventory"
+        },
+        {
+          "ErrorEquals": ["States.ALL"],
+          "ResultPath": "$.error",
+          "Next": "OrderFailed"
+        }
+      ],
+      "Next": "SaveOrderToDynamoDB"
+    },
+    "SaveOrderToDynamoDB": {
+      "Type": "Task",
+      "Resource": "arn:aws:states:::dynamodb:putItem",
+      "Parameters": {
+        "TableName": "${OrdersTableName}",
+        "Item": {
+          "PK": {
+            "S.$": "States.Format('ORDER#{}', $.orderId)"
+          },
+          "SK": {
+            "S": "METADATA"
+          },
+          "GSI1PK": {
+            "S": "STATUS#CONFIRMED"
+          },
+          "orderId": {
+            "S.$": "$.orderId"
+          },
+          "customerId": {
+            "S.$": "$.customerId"
+          },
+          "status": {
+            "S": "CONFIRMED"
+          },
+          "total": {
+            "N.$": "States.Format('{}', $.total)"
+          }
+        },
+        "ConditionExpression": "attribute_not_exists(PK)"
+      },
+      "ResultPath": null,
+      "Catch": [
+        {
+          "ErrorEquals": ["DynamoDB.ConditionalCheckFailedException"],
+          "ResultPath": "$.error",
+          "Next": "OrderAlreadyExists"
+        }
+      ],
+      "Next": "SendConfirmation"
+    },
+    "SendConfirmation": {
+      "Type": "Task",
+      "Resource": "${SendNotificationFunctionArn}",
+      "ResultPath": "$.notification",
+      "Next": "OrderComplete"
+    },
+    "OrderComplete": {
+      "Type": "Pass",
+      "Parameters": {
+        "orderId.$": "$.orderId",
+        "status": "CONFIRMED",
+        "message": "Order processed successfully"
+      },
+      "End": true
+    },
+    "ReleaseInventory": {
+      "Type": "Pass",
+      "Parameters": {
+        "orderId.$": "$.orderId",
+        "action": "inventory_released"
+      },
+      "Next": "OrderFailed"
+    },
+    "OrderInvalid": {
+      "Type": "Fail",
+      "Error": "OrderInvalid",
+      "Cause": "Order failed validation"
+    },
+    "OrderFailed": {
+      "Type": "Fail",
+      "Error": "OrderFailed",
+      "Cause": "Payment processing failed"
+    },
+    "OrderAlreadyExists": {
+      "Type": "Fail",
+      "Error": "DuplicateOrder",
+      "Cause": "Order ID already exists"
+    }
+  }
+}

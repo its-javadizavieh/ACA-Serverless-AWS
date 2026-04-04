@@ -1,0 +1,45 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Transform: AWS::Serverless-2016-10-31
+
+Description: Lab 03 – Lambda Layers & Shared Dependencies
+
+Globals:
+  Function:
+    Runtime: python3.12
+    MemorySize: 256
+    Timeout: 30
+
+Resources:
+  # ── Shared utilities layer ────────────────────────────────────────────────
+  AcaUtilsLayer:
+    Type: AWS::Serverless::LayerVersion
+    Properties:
+      LayerName: aca-utils-layer
+      Description: Shared response helpers and structured logging utilities
+      ContentUri: src/layer/
+      CompatibleRuntimes:
+        - python3.12
+        - python3.11
+      RetentionPolicy: Delete
+    Metadata:
+      BuildMethod: python3.12
+
+  # ── Consumer function that uses the layer ─────────────────────────────────
+  LayerConsumerFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: layer-consumer
+      CodeUri: src/consumer/
+      Handler: app.handler
+      Description: Demonstrates using a Lambda Layer
+      Layers:
+        - !Ref AcaUtilsLayer
+
+Outputs:
+  LayerArn:
+    Description: ARN of the ACA Utils Layer
+    Value: !Ref AcaUtilsLayer
+
+  ConsumerFunctionArn:
+    Description: ARN of the layer consumer function
+    Value: !GetAtt LayerConsumerFunction.Arn

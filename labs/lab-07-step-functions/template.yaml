@@ -1,0 +1,163 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Transform: AWS::Serverless-2016-10-31
+
+Description: Lab 07 – Step Functions Order Processing Workflow
+
+Globals:
+  Function:
+    Runtime: python3.12
+    MemorySize: 512
+    Timeout: 30
+    Tracing: Active
+    Environment:
+      Variables:
+        LOG_LEVEL: INFO
+
+Resources:
+  # ── DynamoDB Table ─────────────────────────────────────────────────────────
+  OrdersTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: step-orders-lab
+      BillingMode: PAY_PER_REQUEST
+      KeySchema:
+        - AttributeName: PK
+          KeyType: HASH
+        - AttributeName: SK
+          KeyType: RANGE
+      AttributeDefinitions:
+        - AttributeName: PK
+          AttributeType: S
+        - AttributeName: SK
+          AttributeType: S
+        - AttributeName: GSI1PK
+          AttributeType: S
+      GlobalSecondaryIndexes:
+        - IndexName: GSI1
+          KeySchema:
+            - AttributeName: GSI1PK
+              KeyType: HASH
+            - AttributeName: SK
+              KeyType: RANGE
+          Projection:
+            ProjectionType: ALL
+
+  # ── SNS Topic for notifications ────────────────────────────────────────────
+  OrderNotificationsTopic:
+    Type: AWS::SNS::Topic
+    Properties:
+      TopicName: step-order-notifications
+
+  # ── Lambda Functions ───────────────────────────────────────────────────────
+  ValidateOrderFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: step-validate-order
+      CodeUri: src/validate_order/
+      Handler: app.handler
+      Description: Validates order data
+
+  ProcessPaymentFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: step-process-payment
+      CodeUri: src/process_payment/
+      Handler: app.handler
+      Description: Simulates payment processing
+
+  SendNotificationFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: step-send-notification
+      CodeUri: src/send_notification/
+      Handler: app.handler
+      Description: Sends order confirmation notification
+      Environment:
+        Variables:
+          TOPIC_ARN: !Ref OrderNotificationsTopic
+      Policies:
+        - SNSPublishMessagePolicy:
+            TopicName: !GetAtt OrderNotificationsTopic.TopicName
+
+  # ── IAM Role for Step Functions ────────────────────────────────────────────
+  StateMachineRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: states.amazonaws.com
+            Action: sts:AssumeRole
+      Policies:
+        - PolicyName: StateMachinePolicy
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: Allow
+                Action: lambda:InvokeFunction
+                Resource:
+                  - !GetAtt ValidateOrderFunction.Arn
+                  - !GetAtt ProcessPaymentFunction.Arn
+                  - !GetAtt SendNotificationFunction.Arn
+              - Effect: Allow
+                Action: dynamodb:PutItem
+                Resource: !GetAtt OrdersTable.Arn
+              - Effect: Allow
+                Action:
+                  - logs:CreateLogDelivery
+                  - logs:GetLogDelivery
+                  - logs:UpdateLogDelivery
+                  - logs:DeleteLogDelivery
+                  - logs:ListLogDeliveries
+                  - logs:PutResourcePolicy
+                  - logs:DescribeResourcePolicies
+                  - logs:DescribeLogGroups
+                Resource: "*"
+              - Effect: Allow
+                Action: xray:PutTraceSegments
+                Resource: "*"
+
+  # ── Step Functions State Machine ───────────────────────────────────────────
+  OrderWorkflowStateMachine:
+    Type: AWS::Serverless::StateMachine
+    Properties:
+      Name: order-processing-workflow
+      DefinitionUri: statemachine/order_workflow.json
+      DefinitionSubstitutions:
+        ValidateOrderFunctionArn: !GetAtt ValidateOrderFunction.Arn
+        ProcessPaymentFunctionArn: !GetAtt ProcessPaymentFunction.Arn
+        SendNotificationFunctionArn: !GetAtt SendNotificationFunction.Arn
+        OrdersTableName: !Ref OrdersTable
+      Role: !GetAtt StateMachineRole.Arn
+      Tracing:
+        Enabled: true
+      Type: STANDARD
+
+  # ── CloudWatch Alarm ────────────────────────────────────────────────────────
+  FailedExecutionsAlarm:
+    Type: AWS::CloudWatch::Alarm
+    Properties:
+      AlarmName: order-workflow-failures
+      AlarmDescription: Step Functions order workflow execution failures
+      Namespace: AWS/States
+      MetricName: ExecutionsFailed
+      Dimensions:
+        - Name: StateMachineArn
+          Value: !Ref OrderWorkflowStateMachine
+      Statistic: Sum
+      Period: 300
+      EvaluationPeriods: 1
+      Threshold: 1
+      ComparisonOperator: GreaterThanOrEqualToThreshold
+      TreatMissingData: notBreaching
+
+Outputs:
+  StateMachineArn:
+    Description: Order workflow state machine ARN
+    Value: !Ref OrderWorkflowStateMachine
+
+  OrdersTableName:
+    Description: DynamoDB table name
+    Value: !Ref OrdersTable

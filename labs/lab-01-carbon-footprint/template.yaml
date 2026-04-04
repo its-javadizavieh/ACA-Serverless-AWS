@@ -1,0 +1,26 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Transform: AWS::Serverless-2016-10-31
+
+Description: >
+  Lab 01 – Carbon Footprint Calculator
+  Compares CO2 emissions of Lambda vs EC2 for a given workload.
+
+Globals:
+  Function:
+    Runtime: python3.12
+    Timeout: 30
+    MemorySize: 256
+
+Resources:
+  CarbonCalculatorFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: carbon-footprint-calculator
+      CodeUri: src/calculator/
+      Handler: app.handler
+      Description: Compare carbon footprint of Lambda vs EC2 workloads
+
+Outputs:
+  CarbonCalculatorFunction:
+    Description: Lambda function ARN
+    Value: !GetAtt CarbonCalculatorFunction.Arn

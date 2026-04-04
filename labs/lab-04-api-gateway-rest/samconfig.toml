@@ -1,0 +1,16 @@
+version = 0.1
+
+[default.deploy.parameters]
+stack_name = "api-gateway-lab"
+resolve_s3 = true
+region = "eu-west-1"
+confirm_changeset = false
+capabilities = "CAPABILITY_IAM"
+parameter_overrides = ""
+
+[dev.deploy.parameters]
+stack_name = "api-gateway-lab-dev"
+resolve_s3 = true
+region = "eu-west-1"
+confirm_changeset = true
+capabilities = "CAPABILITY_IAM"

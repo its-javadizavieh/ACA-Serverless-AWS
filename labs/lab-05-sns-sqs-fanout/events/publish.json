@@ -1,0 +1,6 @@
+{
+  "orderId": "ord-2024-001",
+  "eventType": "order.created",
+  "email": "student@example.com",
+  "total": 149.99
+}

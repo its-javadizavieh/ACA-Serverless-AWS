@@ -1,0 +1,38 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.eggs/
+*.egg
+dist/
+build/
+.venv/
+venv/
+.env
+
+# Node.js / CDK
+node_modules/
+cdk.out/
+dist/
+*.js.map
+*.d.ts
+!src/**/*.js
+!labs/lab-02-hello-lambda/src/hello/app_node.js
+
+# SAM
+.aws-sam/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Output files from local Lambda invocations
+output.json
+response.json

@@ -1,0 +1,10 @@
+# CDK build artifacts
+cdk.out/
+dist/
+*.d.ts
+*.js
+!bin/app.js
+!jest.config.js
+
+node_modules/
+package-lock.json

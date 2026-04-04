@@ -1,0 +1,52 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Transform: AWS::Serverless-2016-10-31
+
+Description: >
+  Lab 02 – Hello Lambda
+  First Lambda function exploring handler, context, env vars and logging.
+
+Parameters:
+  Greeting:
+    Type: String
+    Default: "Hello"
+    Description: Greeting message prefix
+
+Globals:
+  Function:
+    Runtime: python3.12
+    MemorySize: 256
+    Timeout: 30
+    Tracing: Active
+
+Resources:
+  HelloWorldFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: hello-world
+      CodeUri: src/hello/
+      Handler: app.handler
+      Description: Hello World Lambda – Lab 02
+      Environment:
+        Variables:
+          GREETING: !Ref Greeting
+
+  HelloWorldNodeFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: hello-world-node
+      CodeUri: src/hello/
+      Handler: app_node.handler
+      Runtime: nodejs20.x
+      Description: Hello World Lambda (Node.js) – Lab 02
+      Environment:
+        Variables:
+          GREETING: !Ref Greeting
+
+Outputs:
+  HelloWorldFunction:
+    Description: Python Lambda function ARN
+    Value: !GetAtt HelloWorldFunction.Arn
+
+  HelloWorldNodeFunction:
+    Description: Node.js Lambda function ARN
+    Value: !GetAtt HelloWorldNodeFunction.Arn

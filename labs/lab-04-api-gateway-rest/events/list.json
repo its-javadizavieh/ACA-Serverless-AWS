@@ -1,0 +1,6 @@
+{
+  "requestContext": {
+    "http": { "method": "GET" }
+  },
+  "pathParameters": null
+}

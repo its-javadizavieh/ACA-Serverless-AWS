@@ -1,0 +1,10 @@
+{
+  "orderId": "ord-2024-lab-001",
+  "customerId": "cust-001",
+  "total": 199.99,
+  "items": [
+    { "productId": "prod-widget", "qty": 2, "price": 49.99 },
+    { "productId": "prod-gadget", "qty": 1, "price": 100.01 }
+  ],
+  "simulatePaymentFailure": false
+}

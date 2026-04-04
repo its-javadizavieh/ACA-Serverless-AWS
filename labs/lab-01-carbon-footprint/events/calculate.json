@@ -1,0 +1,5 @@
+{
+  "invocationsPerDay": 10000,
+  "avgDurationMs": 200,
+  "memorySizeMB": 512
+}
