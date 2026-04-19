@@ -46,7 +46,7 @@ seyedhossein.javadizavieh@its-ictpiemonte.it | [LinkedIn](https://www.linkedin.c
 
 - **Duration**: 72 hours (23 lectures + labs)
 - **Level**: Intermediate
-- **Language**: Slides & demos in English, Labs in Italian
+- **Language**: Slides, demos & Labs in Italian
 - **Institution**: ITS ICT Piemonte
 - **Course**: Tecnico superiore System Administrator - AWS Cloud Architect (B.F. 2025/2027)
 
