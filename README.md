@@ -10,31 +10,26 @@ This repository contains comprehensive educational materials for a 72-hour cours
 
 ### **labs/** - Hands-on exercises (Italian)
 
-| #   | Lab                                                                     | Topic                                      |
-| --- | ----------------------------------------------------------------------- | ------------------------------------------ |
-| 01  | [Green IT 1](labs/01_green_it_1.md)                                     | Smart Working e Smart Grid                 |
-| 02  | [Green IT 2 & Intro Serverless](labs/02_green_it_2_intro_serverless.md) | Economia Circolare e Intro Serverless      |
-| 03  | [Serverless Fundamentals](labs/03_serverless_fundamentals.md)           | Fondamenti e Confronto Architetturale      |
-| 04  | [Use Cases & Economics](labs/04_use_cases_economics.md)                 | Casi d'Uso e Analisi Economica             |
-| 05  | [Limitations & Best Practices](labs/05_limitations_best_practices.md)   | Limitazioni e Best Practice                |
-| 06  | [First Lambda](labs/06_intro_lambda.md)                                 | Prima Funzione Lambda                      |
-| 07  | [Triggers & Languages](labs/07_triggers_languages.md)                   | Trigger Lambda e Linguaggi                 |
-| 08  | [Resources & Monitoring](labs/08_resources_monitoring.md)               | Risorse Lambda e Monitoraggio              |
-| 09  | [Security & IAM](labs/09_security_iam.md)                               | Sicurezza Lambda e IAM                     |
-| 10  | [API Gateway Intro](labs/10_api_gateway_intro.md)                       | Introduzione ad API Gateway                |
-| 11  | [Integration & Auth](labs/11_integration_auth.md)                       | Integrazione Avanzata e Autenticazione     |
-| 12  | [Versions & Monitoring](labs/12_versions_monitoring.md)                 | Versioni, Stage e Monitoraggio API         |
-| 13  | [Caching & Review](labs/13_caching_monitoring_review.md)                | Caching, Monitoraggio Avanzato e Revisione |
-| 14  | [DynamoDB Fundamentals](labs/14_dynamodb_fundamentals.md)               | Fondamenti DynamoDB e Lambda               |
-| 15  | [DynamoDB & S3](labs/15_dynamodb_s3.md)                                 | DynamoDB Streams, S3 e Integrazione        |
-| 16  | [S3 Trigger & CSV](labs/16_s3_trigger_persistence.md)                   | S3 Trigger, Import CSV e GSI               |
-| 17  | [Persistence & Backup](labs/17_persistence_backup.md)                   | TTL, Backup e Persistenza Dati             |
-| 18  | [Step Functions Intro](labs/18_step_functions_intro.md)                 | Introduzione a Step Functions              |
-| 19  | [Error Handling](labs/19_error_handling.md)                             | Gestione Errori e Retry                    |
-| 20  | [Orchestration & Monitoring](labs/20_orchestration_monitoring.md)       | Orchestrazione Multi-Servizio              |
-| 21  | [SAM Introduction](labs/21_sam_introduction.md)                         | Introduzione a SAM                         |
-| 22  | [CloudFormation & Deploy](labs/22_cloudformation_monitoring.md)         | Deploy Automatizzato e CloudWatch          |
-| 23  | [Final Exam](labs/23_final_exam.md)                                     | Verifica Finale                            |
+| #     | Lab                                                                          | Topic                                        |
+| ----- | ---------------------------------------------------------------------------- | -------------------------------------------- |
+| 01    | [Green IT 1](labs/01_green_it_1.md)                                          | Smart Working e Smart Grid                   |
+| 02    | [Green IT 2 & Intro Serverless](labs/02_green_it_2_intro_serverless.md)      | Economia Circolare e Intro Serverless        |
+| 03    | [Serverless Fundamentals](labs/03_serverless_fundamentals.md)                | Fondamenti e Confronto Architetturale        |
+| 04    | [Use Cases & Economics](labs/04_use_cases_economics.md)                      | Casi d'Uso e Analisi Economica               |
+| 05    | [Limitations & Best Practices](labs/05_limitations_best_practices.md)        | Limitazioni e Best Practice                  |
+| 06    | [First Lambda](labs/06_intro_lambda.md)                                      | Prima Funzione Lambda                        |
+| 07    | [Triggers & Languages](labs/07_triggers_languages.md)                        | Trigger Lambda e Linguaggi                   |
+| 08-09 | [Resources, Security & IAM](labs/08_09_resources_security.md)                | Risorse Lambda, Monitoraggio e Sicurezza IAM |
+| 10    | [API Gateway Intro](labs/10_api_gateway_intro.md)                            | Introduzione ad API Gateway                  |
+| 11    | [Integration & Auth](labs/11_integration_auth.md)                            | Integrazione Avanzata e Autenticazione       |
+| 12-13 | [Versions, Caching & Monitoring](labs/12_13_versions_caching_monitoring.md)  | Versioni, Stage, Caching e Monitoraggio API  |
+| 14    | [DynamoDB Fundamentals](labs/14_dynamodb_fundamentals.md)                    | Fondamenti DynamoDB e Lambda                 |
+| 15-16 | [S3, DynamoDB & GSI](labs/15_16_s3_dynamodb_integration.md)                  | S3 Trigger, DynamoDB Streams e GSI           |
+| 17    | [Persistence & Backup](labs/17_persistence_backup.md)                        | TTL, Backup e Persistenza Dati               |
+| 18    | [Step Functions Intro](labs/18_step_functions_intro.md)                      | Introduzione a Step Functions                |
+| 19-20 | [Error Handling & Orchestration](labs/19_20_error_handling_orchestration.md) | Gestione Errori e Orchestrazione             |
+| 21-22 | [SAM & CloudFormation](labs/21_22_sam_cloudformation.md)                     | SAM, CloudFormation e Monitoraggio           |
+| 23    | Final Exam                                                                   | Verifica Finale                              |
 
 ## Author
 
