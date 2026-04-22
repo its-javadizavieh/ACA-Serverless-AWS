@@ -12,7 +12,7 @@ Calcolare i costi dettagliati per tre scenari reali confrontando architettura tr
 
 - Accesso a Internet
 - AWS Pricing Calculator: https://calculator.aws/
-- Foglio di calcolo (Google Sheets o Excel)
+- Google DOC
 
 ## Scenario
 
