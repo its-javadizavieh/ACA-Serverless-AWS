@@ -24,20 +24,20 @@ Devi aiutare tre aziende a scegliere tra architettura tradizionale e serverless.
 
 1. Un blog riceve 10.000 visite/giorno, ogni visita genera 3 API call
 2. **Architettura EC2:** 1x t3.micro (24/7) + 1x RDS db.t3.micro
-   - EC2: ~$8.50/mese, RDS: ~$15/mese = **$23.50/mese**
+   - EC2: ≈$8.50/mese, RDS: ≈$15/mese = **$23.50/mese**
 3. **Architettura serverless:** API Gateway HTTP + Lambda (50ms, 128 MB) + DynamoDB on-demand
    - 900.000 richieste/mese
-   - API Gateway: $0.90, Lambda: ~$0.10, DynamoDB: ~$0.50 = **~$1.50/mese**
+   - API Gateway: $0.90, Lambda: ≈$0.10, DynamoDB: ≈$0.50 = **≈$1.50/mese**
 4. Annota il risparmio percentuale
 
 ### Step 2 - Scenario B: E-commerce ad alto traffico costante
 
 1. Un e-commerce riceve 1.000.000 di richieste API/ora (costanti, 24/7)
 2. **Architettura EC2:** cluster di 10x c5.large con ALB
-   - EC2: ~$620/mese, ALB: ~$20/mese = **~$640/mese**
+   - EC2: ≈$620/mese, ALB: ≈$20/mese = **≈$640/mese**
 3. **Architettura serverless:** API Gateway + Lambda (200ms, 512 MB)
    - 720 milioni richieste/mese
-   - API Gateway: $720, Lambda: ~$1.200 = **~$1.920/mese**
+   - API Gateway: $720, Lambda: ≈$1.200 = **≈$1.920/mese**
 4. In questo caso, EC2 e piu conveniente. Annota perche
 
 ### Step 3 - Scenario C: Applicazione stagionale
@@ -51,10 +51,10 @@ Devi aiutare tre aziende a scegliere tra architettura tradizionale e serverless.
 ### Step 4 - Break-even point
 
 1. Usando Lambda (200ms, 256 MB) e API Gateway HTTP API:
-   - Costo per invocazione: ~$0.0000035
-2. EC2 t3.medium 24/7: ~$30/mese
+   - Costo per invocazione: ≈$0.0000035
+2. EC2 t3.medium 24/7: ≈$30/mese
 3. Calcola: a quante invocazioni/mese Lambda costa quanto un EC2?
-   - $30 / $0.0000035 = ~8.571.428 invocazioni/mese
+   - $30 / $0.0000035 = ≈8.571.428 invocazioni/mese
 4. Sotto questa soglia, serverless e piu conveniente. Sopra, EC2 conviene
 
 ## Output atteso
@@ -65,7 +65,7 @@ Devi aiutare tre aziende a scegliere tra architettura tradizionale e serverless.
 
 ## Checkpoint
 
-- [ ] Scenario A: serverless e significativamente piu economico (~94% risparmio)
+- [ ] Scenario A: serverless e significativamente piu economico (≈94% risparmio)
 - [ ] Scenario B: EC2 e piu conveniente per traffico costante e alto
 - [ ] Scenario C: serverless vince grazie al pattern stagionale
 - [ ] Break-even: circa 8-9 milioni di invocazioni/mese
