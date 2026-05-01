@@ -38,13 +38,16 @@ Creerai due funzioni Lambda con trigger diversi: una attivata dal caricamento di
 
 ```python
 import json
+import urllib.parse
 
 def lambda_handler(event, context):
     for record in event['Records']:
         bucket = record['s3']['bucket']['name']
-        key = record['s3']['object']['key']
+        key = urllib.parse.unquote_plus(record['s3']['object']['key'])
         size = record['s3']['object']['size']
+
         print(f"File uploaded: s3://{bucket}/{key} (size: {size} bytes)")
+        print(f"Dimensione: {size} bytes")
 
     return {'statusCode': 200, 'body': f'Processed {len(event["Records"])} files'}
 ```

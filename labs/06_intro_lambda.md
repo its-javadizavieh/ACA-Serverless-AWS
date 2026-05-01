@@ -48,7 +48,7 @@ def lambda_handler(event, context):
         'function_name': context.function_name,
         'memory_limit_mb': context.memory_limit_in_mb,
         'remaining_time_ms': context.get_remaining_time_in_millis(),
-        'processing_time_ms': round((time.time() - start) * 1000, 2)
+        'execution_time_ms': round((time.time() - start) * 1000, 2)
     }
 
     print(f"Processed request for: {name}")

@@ -253,12 +253,14 @@ def lambda_handler(event, context):
 ## Output atteso
 
 **Parte A:**
+
 - Tabella con durata e costo per 4 configurazioni di memoria
 - Reserved concurrency impostata a 5
 - Allarme CloudWatch creato per errori Lambda
 - Screenshot della query Logs Insights con risultati
 
 **Parte B:**
+
 - Funzione Lambda funzionante con input validation
 - Environment variable `TABLE_NAME` configurata
 - Test con input valido (200), inesistente (404), mancante (400) e malevolo (400)

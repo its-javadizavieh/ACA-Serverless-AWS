@@ -60,7 +60,7 @@ Devi aiutare tre aziende a scegliere tra architettura tradizionale e serverless.
 ## Output atteso
 
 - Tabella con costi mensili per i 3 scenari (EC2 vs Serverless)
-- Break-even point calcolato
+- Break-even point calcolato con i passaggi esplicitati
 - Raccomandazione motivata per ogni scenario
 
 ## Checkpoint
@@ -68,7 +68,7 @@ Devi aiutare tre aziende a scegliere tra architettura tradizionale e serverless.
 - [ ] Scenario A: serverless e significativamente piu economico (≈94% risparmio)
 - [ ] Scenario B: EC2 e piu conveniente per traffico costante e alto
 - [ ] Scenario C: serverless vince grazie al pattern stagionale
-- [ ] Break-even: circa 8-9 milioni di invocazioni/mese
+- [ ] Break-even: circa 8,5-8,7 milioni di invocazioni/mese con passaggi corretti
 
 ## Troubleshooting rapido
 
@@ -77,6 +77,7 @@ Devi aiutare tre aziende a scegliere tra architettura tradizionale e serverless.
 | Non so calcolare i costi Lambda | Usa: (richieste x $0.20/1M) + (richieste x durata_s x GB_RAM x $0.0000166667)     |
 | I numeri non tornano            | Verifica le unita: millisecondi vs secondi, MB vs GB                              |
 | Non so cosa sia il break-even   | E il punto in cui due opzioni costano uguale. Sotto: una conviene. Sopra: l'altra |
+| Lambda a $0.00 nel Calculator   | Verifica free tier e configurazione; per il lab usa comunque il calcolo unitario  |
 
 ## Cleanup obbligatorio
 
