@@ -258,11 +258,13 @@ def lambda_handler(event, context):
 ## Output atteso
 
 **Parte A:**
+
 - 3 file caricati su S3
 - 3 item nella tabella DynamoDB con metadati (file_key, bucket, size_bytes, content_type, uploaded_at, processed_at)
 - Log in CloudWatch che confermano il processing
 
 **Parte B:**
+
 - CSV importato automaticamente: 6 prodotti in DynamoDB
 - Il trigger si attiva solo per file `.csv` nella cartella `imports/`
 - Query GSI per categoria restituisce prodotti ordinati per prezzo

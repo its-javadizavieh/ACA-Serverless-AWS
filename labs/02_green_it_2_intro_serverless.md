@@ -41,7 +41,7 @@ Il reparto IT della societa EcoTech deve dismettere 150 dispositivi (laptop, mon
    - **Storage:** Lambda scrive i dati trasformati in Amazon DynamoDB
    - **Notifica:** Lambda invia un messaggio su Amazon SNS
 2. Per ogni componente, scrivi una frase che descriva il suo ruolo
-3. Identifica quali componenti sono serverless e perche
+3. Identifica quali componenti sono serverless e perche'
 
 ### Step 3 - Confronto costi idle vs serverless
 
@@ -72,7 +72,7 @@ Il reparto IT della societa EcoTech deve dismettere 150 dispositivi (laptop, mon
 | ----------------------------- | -------------------------------------------------------------------------------------------------------------------- |
 | Non conosco le categorie RAEE | Cerca "RAEE categorie Italia" oppure vedi Allegato VII della Direttiva 2012/19/EU                                    |
 | Non so stimare i costi Lambda | Usa il calcolatore ufficiale: https://aws.amazon.com/lambda/pricing/                                                 |
-| Non so cosa sia un S3 Event   | Verra approfondito nella lezione 16, per ora basta sapere che S3 puo notificare Lambda quando un file viene caricato |
+| Non so cosa sia un S3 Event   | Verra approfondito nella lezione 16, per ora basta sapere che S3 puo' notificare Lambda quando un file viene caricato |
 
 ## Cleanup obbligatorio
 

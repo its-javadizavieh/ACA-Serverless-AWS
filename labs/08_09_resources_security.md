@@ -4,7 +4,7 @@
 
 **Parte A:** Configurare memoria, timeout e concurrency di una funzione Lambda, creare un allarme CloudWatch e utilizzare Logs Insights per analizzare i log.
 
-**Parte B:** Creare una funzione Lambda con policy IAM least-privilege, configurare environment variables e recuperare un segreto da Secrets Manager.
+**Parte B:** Creare una funzione Lambda che usa environment variables, recupera un segreto da Secrets Manager e analizzare quali permessi minimi servirebbero in una policy IAM least-privilege.
 
 ## Durata (timebox)
 
@@ -17,15 +17,15 @@
 
 ---
 
-# Parte A - Risorse Lambda e Monitoraggio
+## Parte A - Risorse Lambda e Monitoraggio
 
-## Scenario
+### Scenario Parte A
 
 Creerai una funzione Lambda che simula un carico di lavoro variabile, configurerai le risorse e imposterai il monitoraggio.
 
-## Step
+### Passi Parte A
 
-### Step 1 - Creare la funzione
+#### Step 1 - Creare la funzione
 
 1. Vai a **Lambda** -> **Create function**
 2. Function name: `resource-test`
@@ -39,7 +39,7 @@ import math
 
 def lambda_handler(event, context):
     # Simulate CPU work
-    iterations = event.get('iterations', 100000)
+    iterations = int(event.get('iterations', 100000))
     start = time.time()
     result = sum(math.sqrt(i) for i in range(iterations))
     duration = round((time.time() - start) * 1000, 2)
@@ -64,9 +64,9 @@ def lambda_handler(event, context):
     }
 ```
 
-5. Clicca **Deploy**
+1. Clicca **Deploy**
 
-### Step 2 - Test con diverse configurazioni di memoria
+#### Step 2 - Test con diverse configurazioni di memoria
 
 1. Crea un test event con `{"iterations": 1000000}`
 2. Testa con **128 MB** - annota la Duration dal REPORT
@@ -82,7 +82,7 @@ def lambda_handler(event, context):
 | 512 MB  | ???         | = 512 x durata_s     |
 | 1024 MB | ???         | = 1024 x durata_s    |
 
-### Step 3 - Configurare Reserved Concurrency
+#### Step 3 - Configurare Reserved Concurrency
 
 1. Vai a Configuration -> **Concurrency**
 2. Clicca **Edit**
@@ -90,29 +90,31 @@ def lambda_handler(event, context):
 4. Salva
 5. Questo significa che al massimo 5 istanze della funzione possono essere in esecuzione contemporaneamente
 
-### Step 4 - Creare un allarme CloudWatch
+#### Step 4 - Creare un allarme CloudWatch
 
 1. Vai a **CloudWatch** -> **Alarms** -> **Create alarm**
 2. Clicca **Select metric** -> Lambda -> By Function Name
 3. Seleziona **Errors** per la funzione `resource-test`
 4. Condizione: **Greater than 0** per **1 valuation period** (1 minuto)
-5. Notification: seleziona "In alarm" ma non configurare un SNS topic (per il lab)
-6. Nome allarme: `resource-test-errors`
-7. Clicca **Create alarm**
+5. In **Configure actions**, non aggiungere nessuna azione: niente SNS notification, niente Lambda action, niente Auto Scaling action.
+6. Se compare una notifica gia' presente, clicca **Remove** per eliminarla. Se invece vedi solo i pulsanti **Add notification** o **Add Lambda action**, non cliccarli.
+7. Clicca **Next**
+8. In **Add alarm details**, come nome inserisci `resource-test-errors`
+9. Clicca **Next**, poi **Create alarm**
 
-### Step 5 - Query con Logs Insights
+#### Step 5 - Query con Logs Insights
 
 1. Vai a **CloudWatch** -> **Logs** -> **Logs Insights**
 2. Seleziona il log group `/aws/lambda/resource-test`
 3. Esegui questa query:
 
-```
+```text
 filter @type = "REPORT"
 | stats avg(@duration) as avgDuration, max(@duration) as maxDuration, min(@memorySize) as memorySize
 | sort avgDuration desc
 ```
 
-4. Osserva la durata media e massima delle invocazioni
+1. Osserva la durata media e massima delle invocazioni
 
 ## Checkpoint Parte A
 
@@ -123,15 +125,15 @@ filter @type = "REPORT"
 
 ---
 
-# Parte B - Sicurezza Lambda e IAM
+## Parte B - Sicurezza Lambda e IAM
 
-## Scenario
+### Scenario Parte B
 
-Devi creare una funzione Lambda che legge dati da DynamoDB e scrive log. La funzione deve usare solo i permessi minimi necessari e recuperare una variabile di configurazione da un environment variable.
+Devi creare una funzione Lambda che legge dati da DynamoDB, scrive log e recupera un valore sensibile da Secrets Manager. Nel Learner Lab userai `LabRole`, ma dovrai annotare quali permessi minimi servirebbero davvero in una policy least-privilege.
 
-## Step
+### Passi Parte B
 
-### Step 6 - Creare una tabella DynamoDB
+#### Step 6 - Creare una tabella DynamoDB
 
 1. Vai a **DynamoDB** -> **Create table**
 2. Table name: `lab09-users`
@@ -139,7 +141,7 @@ Devi creare una funzione Lambda che legge dati da DynamoDB e scrive log. La funz
 4. Table settings: **Default settings**
 5. Clicca **Create table**
 
-### Step 7 - Inserire dati di test
+#### Step 7 - Inserire dati di test
 
 1. Vai alla tabella `lab09-users`
 2. Clicca **Explore table items** -> **Create item**
@@ -149,7 +151,7 @@ Devi creare una funzione Lambda che legge dati da DynamoDB e scrive log. La funz
    - Aggiungi attributo String `email`: `alice@example.com`
 4. Ripeti per un secondo item: `u002`, `Bob`, `bob@example.com`
 
-### Step 8 - Creare la funzione Lambda
+#### Step 8 - Creare la funzione Lambda
 
 1. Vai a **Lambda** -> **Create function**
 2. Function name: `secure-reader`
@@ -163,9 +165,15 @@ import boto3
 
 TABLE_NAME = os.environ.get('TABLE_NAME', 'lab09-users')
 REGION = os.environ.get('AWS_REGION', 'us-east-1')
+APP_SECRET_NAME = os.environ.get('APP_SECRET_NAME', 'lab09/app-config')
 
 dynamodb = boto3.resource('dynamodb', region_name=REGION)
 table = dynamodb.Table(TABLE_NAME)
+secrets_client = boto3.client('secretsmanager', region_name=REGION)
+
+def get_app_secret():
+    response = secrets_client.get_secret_value(SecretId=APP_SECRET_NAME)
+    return json.loads(response['SecretString'])
 
 def lambda_handler(event, context):
     user_id = event.get('user_id')
@@ -193,15 +201,22 @@ def lambda_handler(event, context):
                 'body': json.dumps({'error': 'User not found'})
             }
 
+        secret = get_app_secret()
+
         print(json.dumps({
             'action': 'get_user',
             'user_id': user_id,
-            'status': 'success'
+            'status': 'success',
+            'secret_loaded': True
         }))
 
         return {
             'statusCode': 200,
-            'body': json.dumps(item)
+            'body': json.dumps({
+                'user': item,
+                'secret_loaded': True,
+                'secret_key_present': 'demo_token' in secret
+            })
         }
     except Exception as e:
         print(json.dumps({
@@ -216,37 +231,51 @@ def lambda_handler(event, context):
         }
 ```
 
-5. Clicca **Deploy**
+1. Clicca **Deploy**
 
-### Step 9 - Configurare environment variables
+#### Step 9 - Configurare environment variables
 
 1. Vai a **Configuration** -> **Environment variables** -> **Edit**
-2. Aggiungi:
-   - Key: `TABLE_NAME`, Value: `lab09-users`
-3. Clicca **Save**
+2. Aggiungi `TABLE_NAME = lab09-users`
+3. Aggiungi `APP_SECRET_NAME = lab09/app-config`
+4. Clicca **Save**
 
-### Step 10 - Testare la funzione
+#### Step 10 - Creare un secret in Secrets Manager
+
+1. Vai a **Secrets Manager** -> **Store a new secret**
+2. Secret type: **Other type of secret**
+3. Inserisci questo JSON:
+
+```json
+{ "demo_token": "token-123" }
+```
+
+1. Secret name: `lab09/app-config`
+2. Completa la creazione del secret
+
+#### Step 11 - Testare la funzione
 
 1. Crea un test event: `{"user_id": "u001"}`
-2. Esegui il test. Il risultato dovrebbe contenere i dati di Alice
+2. Esegui il test. Il risultato dovrebbe contenere i dati di Alice e `secret_loaded: true`
 3. Testa con un user_id inesistente: `{"user_id": "u999"}` -> 404
 4. Testa senza user_id: `{}` -> 400
 5. Testa con input malevolo: `{"user_id": "'; DROP TABLE users;--"}` -> 400 (input validation)
 
-### Step 11 - Analisi dei permessi
+#### Step 12 - Analisi dei permessi
 
-1. Annota quali azioni IAM la funzione usa effettivamente:
-   - `dynamodb:GetItem` sulla tabella `lab09-users`
-   - `logs:CreateLogGroup`, `logs:CreateLogStream`, `logs:PutLogEvents`
-2. Queste sono le uniche azioni che una policy least-privilege dovrebbe contenere
-3. Confronta con la policy di `LabRole` (che ha permessi molto piu ampi)
+1. Annota `dynamodb:GetItem` sulla tabella `lab09-users`
+2. Annota `secretsmanager:GetSecretValue` sul secret `lab09/app-config`
+3. Annota `logs:CreateLogGroup`, `logs:CreateLogStream`, `logs:PutLogEvents`
+4. Queste sono le uniche azioni che una policy least-privilege dovrebbe contenere
+5. Confronta con la policy di `LabRole` (che ha permessi molto piu' ampi)
 
 ## Checkpoint Parte B
 
 - [ ] La funzione restituisce i dati di Alice per `u001`
 - [ ] L'input validation blocca tentativi di injection
-- [ ] Le environment variables sono configurate correttamente
-- [ ] Identificate le 4 azioni IAM minime necessarie
+- [ ] Le environment variables `TABLE_NAME` e `APP_SECRET_NAME` sono configurate correttamente
+- [ ] Il secret e' stato creato e letto correttamente dalla funzione
+- [ ] Identificate le 5 azioni IAM minime necessarie
 
 ---
 
@@ -262,27 +291,29 @@ def lambda_handler(event, context):
 **Parte B:**
 
 - Funzione Lambda funzionante con input validation
-- Environment variable `TABLE_NAME` configurata
+- Environment variables `TABLE_NAME` e `APP_SECRET_NAME` configurate
+- Secret `lab09/app-config` creato in Secrets Manager
 - Test con input valido (200), inesistente (404), mancante (400) e malevolo (400)
 - Lista delle azioni IAM minime necessarie
 
 ## Troubleshooting rapido
 
-| Problema                            | Soluzione                                                                               |
-| ----------------------------------- | --------------------------------------------------------------------------------------- |
-| La durata non cambia con la memoria | Il carico potrebbe essere I/O-bound. Aumenta `iterations` per un carico CPU-bound       |
-| Non posso creare l'allarme          | Verifica di avere i permessi CloudWatch. Usa LabRole                                    |
-| Logs Insights non mostra risultati  | Assicurati di aver selezionato il log group corretto e un intervallo temporale adeguato |
-| "Access Denied" su DynamoDB         | Verifica che LabRole abbia i permessi dynamodb:GetItem                                  |
-| Environment variable non letta      | Assicurati di aver cliccato Save dopo la modifica                                       |
-| La funzione non trova la tabella    | Verifica che il nome tabella corrisponda (lab09-users) e la regione sia us-east-1       |
+- La durata non cambia con la memoria: il carico potrebbe essere I/O-bound. Aumenta `iterations` per un carico CPU-bound.
+- Non posso creare l'allarme: verifica di avere i permessi CloudWatch. Usa `LabRole`.
+- Logs Insights non mostra risultati: assicurati di aver selezionato il log group corretto e un intervallo temporale adeguato.
+- "Access Denied" su DynamoDB: verifica che `LabRole` abbia i permessi `dynamodb:GetItem`.
+- "Access Denied" su Secrets Manager: verifica che `LabRole` abbia `secretsmanager:GetSecretValue`.
+- Environment variable non letta: assicurati di aver cliccato Save dopo la modifica.
+- La funzione non trova la tabella: verifica che il nome tabella corrisponda a `lab09-users` e la regione sia `us-east-1`.
+- Secret non trovato: verifica che `APP_SECRET_NAME` corrisponda a `lab09/app-config`.
 
 ## Cleanup obbligatorio
 
 1. **Lambda:** elimina le funzioni `resource-test` e `secure-reader`
 2. **DynamoDB:** elimina la tabella `lab09-users`
-3. **CloudWatch Alarms:** elimina l'allarme `resource-test-errors`
-4. **CloudWatch Logs:** elimina i log group `/aws/lambda/resource-test` e `/aws/lambda/secure-reader`
+3. **Secrets Manager:** elimina il secret `lab09/app-config`
+4. **CloudWatch Alarms:** elimina l'allarme `resource-test-errors`
+5. **CloudWatch Logs:** elimina i log group `/aws/lambda/resource-test` e `/aws/lambda/secure-reader`
 
 ## Parole chiave Google (screenshot/guide)
 

@@ -21,7 +21,7 @@
 
 ## Scenario
 
-Hai un'API gia funzionante. La deploy su due stage (dev e prod) con configurazioni diverse e imposti il monitoraggio completo.
+Hai un'API gia' funzionante. La deploy su due stage (dev e prod) con configurazioni diverse e imposti il monitoraggio completo.
 
 ## Step
 
@@ -207,11 +207,13 @@ def lambda_handler(event, context):
 ## Output atteso
 
 **Parte A:**
+
 - Due stage funzionanti (dev, prod) con risposte diverse
 - Log di accesso in formato JSON nel log group
 - Query Logs Insights con distribuzione status code
 
 **Parte B:**
+
 - Cache funzionante con timestamp identico per cache hit
 - Metriche CacheHitCount e CacheMissCount in CloudWatch
 - Service Map in X-Ray con flusso API Gateway -> Lambda

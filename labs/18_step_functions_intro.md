@@ -167,7 +167,7 @@ def lambda_handler(event, context):
 1. **Step Functions:** elimina la state machine `order-processor`
 2. **Lambda:** elimina `validate-order`, `apply-discount`, `confirm-order`
 3. **CloudWatch Logs:** elimina i log group delle 3 funzioni Lambda
-4. **IAM:** se e stato creato un ruolo automatico per Step Functions, eliminalo
+4. **IAM:** se e' stato creato un ruolo automatico per Step Functions, eliminalo
 
 ## Parole chiave Google (screenshot/guide)
 

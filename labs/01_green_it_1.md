@@ -69,7 +69,7 @@ La societa FictaCorp ha 200 dipendenti, un data center on-premise con 10 rack se
 | Problema                      | Soluzione                                                                  |
 | ----------------------------- | -------------------------------------------------------------------------- |
 | Non conosco i servizi AWS IoT | Cerca "AWS IoT Core overview" nella documentazione ufficiale               |
-| I calcoli non tornano         | Ricontrolla le unita di misura: kW vs kWh, ore/anno = 8.760                |
+| I calcoli non tornano         | Ricontrolla le unita' di misura: kW vs kWh, ore/anno = 8.760                |
 | Non so cosa sia il PUE        | Power Usage Effectiveness = energia totale facility / energia IT equipment |
 
 ## Cleanup obbligatorio

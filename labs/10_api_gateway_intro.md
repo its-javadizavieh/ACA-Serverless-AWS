@@ -116,7 +116,7 @@ def lambda_handler(event, context):
 | Problema                  | Soluzione                                                                         |
 | ------------------------- | --------------------------------------------------------------------------------- |
 | 502 Bad Gateway           | Verifica che la risposta Lambda contenga `statusCode` e `body` (non solo il JSON) |
-| 403 Forbidden             | L'API non e stata deployata. Clicca Deploy API                                    |
+| 403 Forbidden             | L'API non e' stata deployata. Clicca Deploy API                                    |
 | CORS error nel browser    | Verifica che la Lambda restituisca `Access-Control-Allow-Origin: *` nelle headers |
 | 500 Internal Server Error | Controlla i log CloudWatch della funzione Lambda per dettagli                     |
 

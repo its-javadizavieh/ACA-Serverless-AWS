@@ -83,10 +83,10 @@ def lambda_handler(event, context):
 ### Step 4 - Osservare cold start vs warm start
 
 1. Clicca **Test** di nuovo immediatamente (entro 30 secondi)
-2. Nota: **Init Duration** non appare piu (warm start!)
+2. Nota: **Init Duration** non appare piu' (warm start!)
 3. Aspetta 15 minuti e ripeti. Init Duration riappare (cold start)
 4. Vai a **CloudWatch Logs** -> Log groups -> `/aws/lambda/hello-serverless`
-5. Apri il log stream piu recente
+5. Apri il log stream piu' recente
 6. Identifica le righe con `REPORT` e confronta `Init Duration` vs invocazioni senza
 
 ### Step 5 - Sperimentare con la memoria
@@ -95,7 +95,7 @@ def lambda_handler(event, context):
 2. Vai a **Configuration** -> **General configuration** -> **Edit**
 3. Cambia la memoria a **256 MB** (da 128 MB default)
 4. Salva e testa di nuovo
-5. Confronta la durata. Con piu memoria, la funzione potrebbe essere piu veloce
+5. Confronta la durata. Con piu' memoria, la funzione potrebbe essere piu' veloce
 
 ## Output atteso
 
@@ -114,7 +114,7 @@ def lambda_handler(event, context):
 | Problema                       | Soluzione                                                                |
 | ------------------------------ | ------------------------------------------------------------------------ |
 | "Access Denied" alla creazione | Verificare di aver selezionato il ruolo `LabRole`                        |
-| Non vedo Init Duration         | Aspetta qualche minuto e ritesta (il container potrebbe essere gia warm) |
+| Non vedo Init Duration         | Aspetta qualche minuto e ritesta (il container potrebbe essere gia' warm) |
 | CloudWatch Logs vuoto          | I log appaiono dopo qualche secondo. Aggiorna la pagina                  |
 | La funzione non si deploya     | Verifica che il codice non abbia errori di sintassi Python               |
 

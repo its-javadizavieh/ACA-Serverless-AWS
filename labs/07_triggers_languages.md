@@ -69,7 +69,7 @@ def lambda_handler(event, context):
 1. Torna al bucket S3
 2. Clicca **Upload** -> carica un file qualsiasi (es. un file .txt)
 3. Vai a **CloudWatch** -> **Log groups** -> `/aws/lambda/process-s3-upload`
-4. Apri il log stream piu recente
+4. Apri il log stream piu' recente
 5. Verifica che il messaggio contenga il nome del file caricato
 
 ### Step 5 - Creare una funzione schedulata

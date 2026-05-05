@@ -244,7 +244,7 @@ Aggiungi monitoraggio alla tua applicazione SAM: allarmi su errori Lambda, anali
 
 ### Step 9 - Deployare l'applicazione SAM
 
-Se non hai gia l'app dal lab 21, inizializzala:
+Se non hai gia' l'app dal lab 21, inizializzala:
 
 ```bash
 sam init --runtime python3.12 --name monitored-api --app-template hello-world --no-tracing --no-application-insights
@@ -349,7 +349,7 @@ wait
 2. Seleziona il log group della Lambda (es. `/aws/lambda/monitored-api-lab22-ProcessFunction-XXXX`)
 3. Esegui queste query:
 
-**Top invocazioni piu lente:**
+**Top invocazioni piu' lente:**
 
 ```
 filter @type = "REPORT"

@@ -2,18 +2,18 @@
 
 Questa e la composizione dei gruppi di lavoro per il corso.
 
-## Gruppi per attivita teoriche
+## Gruppi per attivita' teoriche
 
-Uso: Labs 01-05, attivita di analisi, calcoli, diagrammi e discussione.
+Uso: Labs 01-05, attivita' di analisi, calcoli, diagrammi e discussione.
 
 | Gruppo | Componenti                                                    | Referente           | Nota                                                         |
 | ------ | ------------------------------------------------------------- | ------------------- | ------------------------------------------------------------ |
 | G1     | Janice Brun, Rebecca Maurutto, Andrea Cianchini               | Janice Brun         | Gruppo con forte guida e buon supporto tecnico               |
-| G2     | Matteo Ninotti, Riccardo Gouthier, Ivan Cioffi                | Matteo Ninotti      | Gruppo bilanciato, utile per attivita di analisi e confronto |
+| G2     | Matteo Ninotti, Riccardo Gouthier, Ivan Cioffi                | Matteo Ninotti      | Gruppo bilanciato, utile per attivita' di analisi e confronto |
 | G3     | Gianmarco Silvano, Matteo Piana, Allaeldene Ilou              | Gianmarco Silvano   | Gruppo molto stabile per diagrammi e ragionamento            |
-| G4     | Esther Ngumo, Matteo Pironato, Cristian Torres, Andrea Polito | Esther Ngumo        | Gruppo da 4, forte e ben bilanciato per attivita teoriche    |
+| G4     | Esther Ngumo, Matteo Pironato, Cristian Torres, Andrea Polito | Esther Ngumo        | Gruppo da 4, forte e ben bilanciato per attivita' teoriche    |
 | G5     | Tommaso Salza, Mbiada Mikael, Federico Freccia                | Tommaso Salza       | Gruppo rapido, adatto a consegne con tempi stretti           |
-| G6     | Pietro Picchiottino, Francesco Agosta, Roberto Cantore        | Pietro Picchiottino | Gruppo solido per attivita con checklist e revisione finale  |
+| G6     | Pietro Picchiottino, Francesco Agosta, Roberto Cantore        | Pietro Picchiottino | Gruppo solido per attivita' con checklist e revisione finale  |
 | G7     | Umberto Farabini, Emanuele Carruba, Farouq Chemmam            | Umberto Farabini    | Gruppo equilibrato con referente affidabile                  |
 | G8     | Sara Ingrassia, Yousef Abdelmoneim, Federico Podio            | Sara Ingrassia      | Gruppo adatto a task divisi in sotto-step                    |
 | G9     | Alessandro Verduna, David Zolfaroli, Cristian Cioban          | Alessandro Verduna  | Gruppo teorico compatto con capitano forte e buona autonomia |

@@ -203,7 +203,7 @@ Verifica nella console DynamoDB che l'item sia stato creato.
 | Problema                                                          | Soluzione                                                                       |
 | ----------------------------------------------------------------- | ------------------------------------------------------------------------------- |
 | "ValidationException: The provided key does not match the schema" | Verifica di includere ENTRAMBE le chiavi (customer_id E order_date) nel GetItem |
-| "Decimal is not JSON serializable"                                | Usa `default=str` in json.dumps (gia incluso nel codice)                        |
+| "Decimal is not JSON serializable"                                | Usa `default=str` in json.dumps (gia' incluso nel codice)                        |
 | Query restituisce 0 risultati                                     | Verifica che il customer_id sia esattamente uguale (case-sensitive)             |
 | Environment variable non trovata                                  | Verifica `TABLE_NAME` nella configurazione Lambda                               |
 

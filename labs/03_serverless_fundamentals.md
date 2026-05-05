@@ -59,7 +59,7 @@ La startup QuickOrder vuole lanciare un servizio di food delivery. Il sistema de
 
 - 3 diagrammi architetturali (monolite, microservizi, serverless)
 - Tabella comparativa con costi mensili stimati
-- Nota su quale architettura e piu adatta al caso d'uso e perche
+- Nota su quale architettura e piu' adatta al caso d'uso e perche'
 
 ## Checkpoint
 

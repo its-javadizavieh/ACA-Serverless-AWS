@@ -92,7 +92,7 @@ def lambda_handler(event, context):
 
 1. Vai a DynamoDB -> `lab17-sessions` -> **Explore table items**
 2. Verifica i 3 item con i loro `expires_at`
-3. Aspetta 1-2 minuti (nota: DynamoDB puo impiegare fino a 48 ore per eliminare gli item, ma in pratica e molto piu veloce)
+3. Aspetta 1-2 minuti (nota: DynamoDB puo' impiegare fino a 48 ore per eliminare gli item, ma in pratica e molto piu' veloce)
 4. `sess-001` dovrebbe scomparire presto (TTL 60 secondi)
 5. `sess-002` e `sess-003` rimarranno
 
@@ -146,8 +146,8 @@ def lambda_handler(event, context):
 
 | Problema                      | Soluzione                                                                                                                      |
 | ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
-| TTL non elimina l'item        | L'eliminazione TTL puo impiegare fino a 48 ore. Non e immediata                                                                |
-| Backup in stato CREATING      | Il backup puo richiedere qualche minuto per tabelle grandi                                                                     |
+| TTL non elimina l'item        | L'eliminazione TTL puo' impiegare fino a 48 ore. Non e' immediata                                                                |
+| Backup in stato CREATING      | Il backup puo' richiedere qualche minuto per tabelle grandi                                                                     |
 | PITR non disponibile          | Verifica che la tabella sia in stato ACTIVE prima di abilitare                                                                 |
 | Lifecycle rule non si applica | Le regole si applicano ai nuovi oggetti e a quelli esistenti, ma le transizioni avvengono dopo il numero di giorni specificato |
 
