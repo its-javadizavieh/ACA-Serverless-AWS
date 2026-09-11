@@ -7,3 +7,5 @@
 
 # Exclude lab files 10 and later
 labs/[1-9][0-9]*.md
+labs/gruppi_e_coppie_per_studenti.md
+labs/solutions/
