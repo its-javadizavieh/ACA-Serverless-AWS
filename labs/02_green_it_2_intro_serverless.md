@@ -4,10 +4,6 @@
 
 Classificare apparecchiature IT secondo le categorie RAEE, e disegnare il primo schema di un'applicazione serverless event-driven su AWS.
 
-## Durata (timebox)
-
-30 minuti
-
 ## Prerequisiti
 
 - Accesso a Internet

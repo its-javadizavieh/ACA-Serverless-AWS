@@ -4,10 +4,6 @@
 
 Configurare Lambda con trigger S3 (asincrono) e trigger EventBridge schedulato, osservando i diversi modelli di invocazione.
 
-## Durata (timebox)
-
-30 minuti
-
 ## Prerequisiti
 
 - Account AWS Academy Learner Lab attivo

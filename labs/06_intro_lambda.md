@@ -4,10 +4,6 @@
 
 Creare, testare e osservare la prima funzione Lambda nella console AWS, analizzando cold start e warm start nei log.
 
-## Durata (timebox)
-
-30 minuti
-
 ## Prerequisiti
 
 - Account AWS Academy Learner Lab attivo

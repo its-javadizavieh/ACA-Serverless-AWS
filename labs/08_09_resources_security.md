@@ -6,10 +6,6 @@
 
 **Parte B:** Creare una funzione Lambda che usa environment variables, recupera un segreto da Secrets Manager e analizzare quali permessi minimi servirebbero in una policy IAM least-privilege.
 
-## Durata (timebox)
-
-60 minuti (30 + 30)
-
 ## Prerequisiti
 
 - Account AWS Academy Learner Lab attivo

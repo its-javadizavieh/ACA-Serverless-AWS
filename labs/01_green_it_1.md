@@ -4,10 +4,6 @@
 
 Analizzare l'impatto ambientale delle scelte IT confrontando infrastruttura on-premise e soluzioni cloud, e identificare componenti di una smart grid gestibili con servizi AWS.
 
-## Durata (timebox)
-
-30 minuti
-
 ## Prerequisiti
 
 - Accesso a Internet

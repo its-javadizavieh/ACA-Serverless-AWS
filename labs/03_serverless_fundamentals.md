@@ -4,10 +4,6 @@
 
 Disegnare diagrammi architetturali per le tre principali architetture (monolite, microservizi, serverless) e confrontare i costi stimati.
 
-## Durata (timebox)
-
-30 minuti
-
 ## Prerequisiti
 
 - Accesso a Internet

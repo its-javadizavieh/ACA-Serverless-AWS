@@ -4,10 +4,6 @@
 
 Analizzare una Lambda function mal progettata, identificare le violazioni delle best practice e proporre miglioramenti concreti.
 
-## Durata (timebox)
-
-30 minuti
-
 ## Prerequisiti
 
 - Conoscenza base di Python (o Node.js)

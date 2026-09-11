@@ -4,10 +4,6 @@
 
 Calcolare i costi dettagliati per tre scenari reali confrontando architettura tradizionale e serverless, e identificare il punto di break-even.
 
-## Durata (timebox)
-
-30 minuti
-
 ## Prerequisiti
 
 - Accesso a Internet
