@@ -190,11 +190,3 @@ def lambda_handler(event, context):
 2. **Lambda:** elimina `crud-users` e `simple-authorizer`
 3. **DynamoDB:** elimina la tabella `lab11-users`
 4. **CloudWatch Logs:** elimina i log group di entrambe le funzioni Lambda
-
-## Parole chiave Google (screenshot/guide)
-
-- "API Gateway CRUD Lambda DynamoDB tutorial"
-- "Lambda authorizer API Gateway Python"
-- "API Gateway path parameters Lambda proxy"
-- "REST API multi-resource tutorial"
-- "API Gateway authorizer token validation"

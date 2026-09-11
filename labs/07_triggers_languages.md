@@ -130,11 +130,3 @@ def lambda_handler(event, context):
 2. **S3:** svuota e elimina il bucket `lab07-trigger-TUONOME`
 3. **EventBridge:** vai a EventBridge -> Rules -> elimina `every-5-min-rule`
 4. **CloudWatch:** elimina i log group `/aws/lambda/process-s3-upload` e `/aws/lambda/scheduled-task`
-
-## Parole chiave Google (screenshot/guide)
-
-- "AWS Lambda S3 trigger tutorial"
-- "Lambda EventBridge schedule rule"
-- "S3 event notification Lambda configuration"
-- "CloudWatch Logs Lambda tutorial"
-- "AWS Lambda event source types"

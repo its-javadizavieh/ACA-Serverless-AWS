@@ -97,11 +97,3 @@ Devi aiutare tre aziende a scegliere tra architettura tradizionale e serverless.
 ## Cleanup obbligatorio
 
 Nessuna risorsa AWS da eliminare. Lab basato su calcoli con il Pricing Calculator.
-
-## Parole chiave Google (screenshot/guide)
-
-- "AWS Lambda cost calculator"
-- "serverless vs EC2 break even point"
-- "AWS Pricing Calculator tutorial"
-- "API Gateway HTTP API vs REST API pricing"
-- "DynamoDB on-demand vs provisioned pricing"

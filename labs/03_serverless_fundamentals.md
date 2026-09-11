@@ -78,11 +78,3 @@ La startup QuickOrder vuole lanciare un servizio di food delivery. Il sistema de
 ## Cleanup obbligatorio
 
 Nessuna risorsa AWS da eliminare. Lab basato su calcolo e diagrammi.
-
-## Parole chiave Google (screenshot/guide)
-
-- "AWS serverless architecture diagram example"
-- "AWS Pricing Calculator tutorial"
-- "monolith vs microservices vs serverless comparison"
-- "AWS Lambda pricing example"
-- "ECS Fargate pricing"

@@ -168,11 +168,3 @@ def lambda_handler(event, context):
 2. **Lambda:** elimina `validate-order`, `apply-discount`, `confirm-order`
 3. **CloudWatch Logs:** elimina i log group delle 3 funzioni Lambda
 4. **IAM:** se e' stato creato un ruolo automatico per Step Functions, eliminalo
-
-## Parole chiave Google (screenshot/guide)
-
-- "AWS Step Functions Workflow Studio tutorial"
-- "Step Functions Choice state example"
-- "Step Functions Lambda invoke tutorial"
-- "Amazon States Language JSON example"
-- "Step Functions visual workflow console"

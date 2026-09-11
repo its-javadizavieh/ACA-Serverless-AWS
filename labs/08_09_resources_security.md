@@ -314,16 +314,3 @@ def lambda_handler(event, context):
 3. **Secrets Manager:** elimina il secret `lab09/app-config`
 4. **CloudWatch Alarms:** elimina l'allarme `resource-test-errors`
 5. **CloudWatch Logs:** elimina i log group `/aws/lambda/resource-test` e `/aws/lambda/secure-reader`
-
-## Parole chiave Google (screenshot/guide)
-
-- "AWS Lambda memory CPU relationship"
-- "Lambda reserved concurrency tutorial"
-- "CloudWatch alarm Lambda errors"
-- "CloudWatch Logs Insights query examples"
-- "Lambda Power Tuning open source"
-- "Lambda IAM execution role least privilege"
-- "Lambda environment variables configuration"
-- "AWS Secrets Manager Lambda Python"
-- "DynamoDB GetItem Python boto3"
-- "Lambda input validation best practices"

@@ -126,11 +126,3 @@ def lambda_handler(event, context):
 4. Conferma la cancellazione
 5. Vai a **CloudWatch** -> **Log groups**
 6. Elimina il log group `/aws/lambda/hello-serverless`
-
-## Parole chiave Google (screenshot/guide)
-
-- "AWS Lambda create function console tutorial"
-- "Lambda cold start vs warm start"
-- "AWS Lambda Python handler tutorial"
-- "CloudWatch Logs Lambda"
-- "Lambda memory configuration best practice"

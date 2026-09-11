@@ -237,16 +237,3 @@ def lambda_handler(event, context):
 3. **CloudWatch Logs:** elimina `api-access-logs-dev` e i log group delle funzioni Lambda
 4. **CloudWatch:** elimina eventuali dashboard create
 5. **X-Ray:** non richiede cleanup (le tracce scadono automaticamente dopo 30 giorni)
-
-## Parole chiave Google (screenshot/guide)
-
-- "API Gateway multiple stages tutorial"
-- "API Gateway stage variables"
-- "API Gateway access logging CloudWatch"
-- "CloudWatch Logs Insights API Gateway"
-- "API Gateway canary deployment"
-- "API Gateway caching REST API tutorial"
-- "API Gateway cache hit miss CloudWatch"
-- "AWS X-Ray API Gateway Lambda tracing"
-- "X-Ray Service Map tutorial"
-- "API Gateway cache invalidation"

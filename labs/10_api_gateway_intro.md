@@ -125,11 +125,3 @@ def lambda_handler(event, context):
 1. **API Gateway:** vai a APIs -> seleziona `student-api` -> Delete API
 2. **Lambda:** elimina la funzione `api-hello`
 3. **CloudWatch Logs:** elimina il log group `/aws/lambda/api-hello`
-
-## Parole chiave Google (screenshot/guide)
-
-- "AWS API Gateway REST API create tutorial"
-- "API Gateway Lambda proxy integration"
-- "API Gateway deploy stage console"
-- "API Gateway CORS configuration"
-- "API Gateway test endpoint browser"

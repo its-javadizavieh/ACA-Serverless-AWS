@@ -77,11 +77,3 @@ Il reparto IT della societa EcoTech deve dismettere 150 dispositivi (laptop, mon
 ## Cleanup obbligatorio
 
 Nessuna risorsa AWS da eliminare. Lab basato su ricerca, calcolo e disegno architetturale.
-
-## Parole chiave Google (screenshot/guide)
-
-- "RAEE categorie Italia normativa"
-- "AWS serverless architecture diagram"
-- "AWS Lambda pricing calculator"
-- "S3 event notification Lambda"
-- "NIST 800-88 data sanitization guidelines"

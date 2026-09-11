@@ -115,11 +115,3 @@ Scrivi una checklist di 10 best practice serverless che userai come riferimento 
 ## Cleanup obbligatorio
 
 Nessuna risorsa AWS da eliminare. Lab basato su code review.
-
-## Parole chiave Google (screenshot/guide)
-
-- "AWS Lambda best practices Python"
-- "AWS Secrets Manager Lambda integration"
-- "SQL injection prevention Python"
-- "Lambda handler best practices cold start"
-- "boto3 client initialization Lambda"

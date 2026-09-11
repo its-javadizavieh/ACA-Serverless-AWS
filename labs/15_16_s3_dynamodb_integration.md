@@ -287,16 +287,3 @@ def lambda_handler(event, context):
 2. **DynamoDB:** elimina le tabelle `lab15-file-metadata` e `lab16-products` (il GSI si elimina automaticamente)
 3. **Lambda:** elimina `process-upload-metadata` e `csv-importer`
 4. **CloudWatch Logs:** elimina i log group correlati
-
-## Parole chiave Google (screenshot/guide)
-
-- "S3 Lambda trigger DynamoDB tutorial"
-- "S3 event notification Lambda Python"
-- "DynamoDB put_item Boto3 tutorial"
-- "S3 head_object content type"
-- "Serverless file processing pipeline AWS"
-- "S3 event notification prefix suffix filter"
-- "Lambda CSV import DynamoDB Python"
-- "DynamoDB Global Secondary Index create"
-- "DynamoDB GSI query Boto3"
-- "S3 Lambda trigger avoid infinite loop"

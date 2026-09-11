@@ -158,11 +158,3 @@ def lambda_handler(event, context):
 3. **Lambda:** elimina `insert-sessions`
 4. **S3:** rimuovi la lifecycle rule, svuota e elimina il bucket `lab17-lifecycle-TUONOME`
 5. **CloudWatch Logs:** elimina i log group
-
-## Parole chiave Google (screenshot/guide)
-
-- "DynamoDB TTL enable tutorial"
-- "DynamoDB on-demand backup console"
-- "DynamoDB point-in-time recovery"
-- "S3 lifecycle policy create tutorial"
-- "S3 storage class transition"

@@ -361,16 +361,3 @@ Verifica che anche questo ordine appaia in DynamoDB e S3.
 4. **S3:** svuota e elimina `lab20-receipts-TUONOME`
 5. **CloudWatch Logs:** elimina `step-functions-lab20` e i log group delle funzioni Lambda
 6. **IAM:** elimina eventuali ruoli creati automaticamente per Step Functions
-
-## Parole chiave Google (screenshot/guide)
-
-- "Step Functions Retry Catch example"
-- "Step Functions error handling tutorial"
-- "Amazon States Language Retry BackoffRate"
-- "Step Functions Catch ResultPath"
-- "Step Functions execution history events"
-- "Step Functions DynamoDB direct integration"
-- "Step Functions S3 putObject integration"
-- "Step Functions SDK service integrations"
-- "Step Functions CloudWatch logging"
-- "Step Functions execution monitoring"

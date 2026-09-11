@@ -212,11 +212,3 @@ Verifica nella console DynamoDB che l'item sia stato creato.
 1. **DynamoDB:** elimina la tabella `lab14-orders`
 2. **Lambda:** elimina la funzione `orders-crud`
 3. **CloudWatch Logs:** elimina il log group `/aws/lambda/orders-crud`
-
-## Parole chiave Google (screenshot/guide)
-
-- "DynamoDB create table console tutorial"
-- "DynamoDB composite key query"
-- "Boto3 DynamoDB query KeyConditionExpression"
-- "Lambda DynamoDB CRUD Python tutorial"
-- "DynamoDB on-demand vs provisioned capacity"

@@ -447,16 +447,3 @@ Inoltre:
 3. **CloudWatch Logs:** elimina eventuali log group residui
 
 Verifica nella console CloudFormation che gli stack siano stati eliminati.
-
-## Parole chiave Google (screenshot/guide)
-
-- "AWS SAM init tutorial python"
-- "SAM deploy guided example"
-- "SAM template DynamoDB example"
-- "SAM local invoke tutorial"
-- "SAM CLI commands reference"
-- "CloudFormation stack resources tab"
-- "CloudWatch Logs Insights Lambda tutorial"
-- "CloudWatch alarm Lambda errors"
-- "CloudWatch dashboard serverless"
-- "SAM deploy CloudFormation stack"

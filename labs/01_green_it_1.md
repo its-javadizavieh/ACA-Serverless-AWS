@@ -75,11 +75,3 @@ La societa FictaCorp ha 200 dipendenti, un data center on-premise con 10 rack se
 ## Cleanup obbligatorio
 
 Nessuna risorsa AWS da eliminare. Questo lab e interamente basato su ricerca e calcolo.
-
-## Parole chiave Google (screenshot/guide)
-
-- "AWS sustainability pillars"
-- "data center PUE calculator"
-- "smart grid architecture IoT"
-- "AWS IoT Core getting started"
-- "green IT carbon footprint calculator"
