@@ -2,13 +2,14 @@
 
 **Serverless su AWS** - Complete course materials for building serverless applications on Amazon Web Services using Lambda, API Gateway, DynamoDB, Step Functions, and SAM.
 
-## About This Repository
+## 📚 About This Repository
 
 This repository contains comprehensive educational materials for a 72-hour course on **serverless computing on AWS**, including hands-on labs designed for practical cloud computing learning. The course covers the full serverless stack from Green IT foundations through real-world orchestration and Infrastructure as Code.
 
 ## Repository Structure
 
-### **labs/** - Hands-on exercises (Italian)
+## 📂 Labs
+Hands-on exercises
 
 | #     | Lab                                                                          | Topic                                        |
 | ----- | ---------------------------------------------------------------------------- | -------------------------------------------- |
@@ -31,13 +32,15 @@ This repository contains comprehensive educational materials for a 72-hour cours
 | 21-22 | [SAM & CloudFormation](labs/21_22_sam_cloudformation.md)                     | SAM, CloudFormation e Monitoraggio           |
 | 23    | Final Exam                                                                   | Verifica Finale                              |
 
-## Author
+## 👨‍💻 Author
 
 **Seyedhossein Javadizavieh**
 
-seyedhossein.javadizavieh@its-ictpiemonte.it | [LinkedIn](https://www.linkedin.com/in/seyedhosseinjavadizavieh)
+📧 <seyedhossein.javadizavieh@its-ictpiemonte.it>
 
-## Course Information
+🔗 [LinkedIn Profile](https://www.linkedin.com/in/seyedhosseinjavadizavieh)
+
+## 🎓 Course Information
 
 - **Duration**: 72 hours (23 lectures + labs)
 - **Level**: Intermediate
@@ -45,7 +48,7 @@ seyedhossein.javadizavieh@its-ictpiemonte.it | [LinkedIn](https://www.linkedin.c
 - **Institution**: ITS ICT Piemonte
 - **Course**: Tecnico superiore System Administrator - AWS Cloud Architect (B.F. 2025/2027)
 
-## Topics Covered
+## 🔖 Topics Covered
 
 1. Green IT - Smart Working, Smart Grid, economia circolare
 2. Introduction to serverless computing and cloud-native architectures
@@ -71,7 +74,7 @@ seyedhossein.javadizavieh@its-ictpiemonte.it | [LinkedIn](https://www.linkedin.c
 22. CloudFormation, automated deployments, CloudWatch
 23. Cost governance, final exam, and course wrap-up
 
-## License
+## 📄 License
 
 Educational materials for ITS ICT Piemonte - Serverless su AWS course.
 
