@@ -6,8 +6,6 @@
 
 This repository contains comprehensive educational materials for a 72-hour course on **serverless computing on AWS**, including hands-on labs designed for practical cloud computing learning. The course covers the full serverless stack from Green IT foundations through real-world orchestration and Infrastructure as Code.
 
-## Repository Structure
-
 ## 📂 Labs
 Hands-on exercises
 
