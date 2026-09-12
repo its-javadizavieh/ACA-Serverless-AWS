@@ -46,7 +46,7 @@ Hands-on exercises
 - **Institution**: ITS ICT Piemonte
 - **Course**: Tecnico superiore System Administrator - AWS Cloud Architect (B.F. 2025/2027)
 
-## 🔖 Topics Covered
+## 📖 Topics Covered
 
 1. Green IT - Smart Working, Smart Grid, economia circolare
 2. Introduction to serverless computing and cloud-native architectures
