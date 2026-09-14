@@ -4,7 +4,7 @@
 
 ## 📚 About This Repository
 
-This repository contains comprehensive educational materials for a 72-hour course on **serverless computing on AWS**, including hands-on labs designed for practical cloud computing learning. The course covers the full serverless stack from Green IT foundations through real-world orchestration and Infrastructure as Code.
+This repository contains comprehensive educational materials for a course on **serverless computing on AWS**, including hands-on labs designed for practical cloud computing learning. Lectures 10-19 form a 40-hour block of ten 4-hour sessions. The course covers the full serverless stack from Green IT foundations through real-world orchestration and Infrastructure as Code.
 
 ## 📂 Labs
 Hands-on exercises
@@ -19,16 +19,16 @@ Hands-on exercises
 | 06    | [First Lambda](labs/06_intro_lambda.md)                                      | Prima Funzione Lambda                        |
 | 07    | [Triggers & Languages](labs/07_triggers_languages.md)                        | Trigger Lambda e Linguaggi                   |
 | 08-09 | [Resources, Security & IAM](labs/08_09_resources_security.md)                | Risorse Lambda, Monitoraggio e Sicurezza IAM |
-| 10    | [API Gateway Intro](labs/10_api_gateway_intro.md)                            | Introduzione ad API Gateway                  |
-| 11    | [Integration & Auth](labs/11_integration_auth.md)                            | Integrazione Avanzata e Autenticazione       |
-| 12-13 | [Versions, Caching & Monitoring](labs/12_13_versions_caching_monitoring.md)  | Versioni, Stage, Caching e Monitoraggio API  |
-| 14    | [DynamoDB Fundamentals](labs/14_dynamodb_fundamentals.md)                    | Fondamenti DynamoDB e Lambda                 |
-| 15-16 | [S3, DynamoDB & GSI](labs/15_16_s3_dynamodb_integration.md)                  | S3 Trigger, DynamoDB Streams e GSI           |
-| 17    | [Persistence & Backup](labs/17_persistence_backup.md)                        | TTL, Backup e Persistenza Dati               |
-| 18    | [Step Functions Intro](labs/18_step_functions_intro.md)                      | Introduzione a Step Functions                |
-| 19-20 | [Error Handling & Orchestration](labs/19_20_error_handling_orchestration.md) | Gestione Errori e Orchestrazione             |
-| 21-22 | [SAM & CloudFormation](labs/21_22_sam_cloudformation.md)                     | SAM, CloudFormation e Monitoraggio           |
-| 23    | Final Exam                                                                   | Verifica Finale                              |
+| 10    | [API Gateway Intro](labs/10_api_gateway_intro.md) | REST/HTTP API, Lambda proxy, CORS e throttling |
+| 11    | [Integration & Auth](labs/11_integration_auth.md) | Proxy/non-proxy, CRUD, IAM, authorizer e Cognito |
+| 12 | [Versions, Caching & Monitoring](labs/12_versions_caching_monitoring.md) | Versioni, stage, caching, CloudWatch e X-Ray |
+| 13 | [DynamoDB Fundamentals](labs/13_dynamodb_fundamentals.md) | Modello dati, PK/SK, indici, CRUD e Lambda |
+| 14 | [S3, DynamoDB & GSI](labs/14_s3_dynamodb_integration.md) | Streams, S3, pipeline CSV, access pattern e seconda verifica |
+| 15 | [Persistence & Backup](labs/15_persistence_backup.md) | Modellazione, query, TTL e backup |
+| 16 | [Step Functions](labs/16_step_functions_intro.md) | ASL, tipi di stato e Workflow Studio |
+| 17 | [Error Handling & Orchestration](labs/17_error_handling_orchestration.md) | Retry, Catch, workflow complessi e integrazioni AWS |
+| 18 | [SAM & CloudFormation](labs/18_sam_cloudformation.md) | SAM, CloudFormation, deployment e CloudWatch |
+| 19    | Final assessment | Costi, governance, sicurezza e verifica finale |
 
 ## 👨‍💻 Author
 
@@ -40,7 +40,7 @@ Hands-on exercises
 
 ## 🎓 Course Information
 
-- **Duration**: 72 hours (23 lectures + labs)
+- **Current advanced block**: 40 hours (lectures 10-19, 4 hours each)
 - **Level**: Intermediate
 - **Language**: Slides, demos & Labs in Italian
 - **Institution**: ITS ICT Piemonte
