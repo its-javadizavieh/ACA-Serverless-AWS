@@ -68,21 +68,39 @@ def lambda_handler(event, context):
 
 ### Step 4 - Abilitare i log di accesso
 
-1. Vai a **Stages** -> seleziona `dev`
-2. Tab **Logs/Tracing**
-3. Abilita **CloudWatch Logs**: seleziona **INFO**
-4. Abilita **Access Logging**
-5. Per il formato JSON, inserisci:
+Prima di configurare lo stage, imposta il ruolo CloudWatch a livello di account e crea il log group di destinazione.
+
+1. Configura il ruolo usato da API Gateway per scrivere su CloudWatch:
+   - Vai a **IAM** -> **Roles** -> `LabRole`
+   - Nella sezione **Summary**, copia il valore **ARN** del ruolo, ad esempio `arn:aws:iam::<account-id>:role/LabRole`
+   - Copia il **Role ARN**, non l'**Instance profile ARN**
+   - Vai a **API Gateway** -> **Settings** -> sezione **Logging** -> **Edit**
+   - Incolla l'ARN in **CloudWatch log role ARN** e salva
+
+> Se appare l'errore **CloudWatch Logs role ARN must be set in account settings to enable logging**, significa che questo passaggio non e' stato ancora completato.
+
+2. Crea il log group prima di configurare l'access logging dello stage:
+   - Vai a **CloudWatch** -> **Log groups** -> **Create log group**
+   - Nome: `api-access-logs-dev`
+   - Apri il log group e copia il suo ARN
+   - Se l'ARN copiato termina con `:*`, rimuovi questi due caratteri. Esempio:
+     - ARN copiato: `arn:aws:logs:<region>:<account-id>:log-group:api-access-logs-dev:*`
+     - ARN da incollare: `arn:aws:logs:<region>:<account-id>:log-group:api-access-logs-dev`
+
+> Se lasci `:*`, API Gateway puo' mostrare l'errore **Access log destination must only contain characters...**. Il campo richiede l'ARN del log group senza il suffisso `:*`.
+
+3. Vai a **API Gateway** -> **Stages** -> seleziona `dev`
+4. Apri la scheda **Logs/Tracing**
+5. Abilita **CloudWatch Logs** e seleziona il livello **INFO**
+6. Abilita **Access Logging**
+7. Nel campo dell'ARN di destinazione, incolla l'ARN del log group corretto, senza `:*`
+8. Per il formato JSON, inserisci:
 
 ```
 {"requestId":"$context.requestId","ip":"$context.identity.sourceIp","method":"$context.httpMethod","status":"$context.status","latency":"$context.responseLatency"}
 ```
 
-6. Per l'ARN del log group, crea prima un log group in CloudWatch:
-   - Vai a **CloudWatch** -> **Log groups** -> **Create log group**
-   - Nome: `api-access-logs-dev`
-   - Copia l'ARN e incollalo nel campo
-7. Salva le modifiche
+9. Salva le modifiche
 
 ### Step 5 - Testare e generare traffico
 
