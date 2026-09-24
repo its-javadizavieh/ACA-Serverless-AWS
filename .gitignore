@@ -7,7 +7,8 @@
 
 # Exclude lab files 10 and later, then include lab 10
 labs/[1-9][0-9]*.md
-!labs/10_api_gateway_intro.md
-!labs/11_integration_auth.md
+!labs/10*
+!labs/11*
+!labs/12*
 labs/gruppi_e_coppie_per_studenti.md
 labs/solutions/
