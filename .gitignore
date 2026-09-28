@@ -10,5 +10,6 @@ labs/[1-9][0-9]*.md
 !labs/10*
 !labs/11*
 !labs/12*
+!labs/13*
 labs/gruppi_e_coppie_per_studenti.md
 labs/solutions/
