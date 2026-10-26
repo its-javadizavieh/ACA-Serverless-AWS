@@ -242,7 +242,7 @@ Creerai un workflow che registra un ordine in DynamoDB e salva una ricevuta in S
     },
     "SaveReceipt": {
       "Type": "Task",
-      "Resource": "arn:aws:states:::s3:putObject",
+      "Resource": "arn:aws:states:::aws-sdk:s3:putObject",
       "Parameters": {
         "Bucket": "lab17-receipts-TUONOME",
         "Key.$": "States.Format('receipts/{}.json', $.order_id)",
