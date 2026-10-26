@@ -31,6 +31,7 @@ import json
 def lambda_handler(event, context):
     order_id = event.get('order_id', 'unknown')
     total = event.get('total', 0)
+    simulate_error = event.get('simulate_error', False)
 
     if total <= 0:
         raise ValueError(f"Invalid total: {total}")
@@ -38,7 +39,8 @@ def lambda_handler(event, context):
     return {
         'order_id': order_id,
         'total': total,
-        'status': 'validated'
+        'status': 'validated',
+        'simulate_error': simulate_error
     }
 ```
 
