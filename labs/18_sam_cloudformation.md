@@ -199,14 +199,36 @@ Crea `events/create_order.json`:
 sam deploy --guided
 ```
 
-Risposte suggerite:
+Per il primo deploy mantieni `--guided` e rispondi a **tutte** le domande:
 
-- Stack name: `order-api-lab18`
-- Region: `us-east-1`
-- Confirm changes: `Y`
-- CreateOrderFunction may not have authorization: `Y`
-- GetOrderFunction may not have authorization: `Y`
-- Save arguments: `Y`
+| Domanda SAM CLI                                          | Risposta                                   |
+| -------------------------------------------------------- | ------------------------------------------ |
+| Stack Name                                               | `order-api-lab18`                          |
+| AWS Region                                               | `us-east-1`                                |
+| Confirm changes before deploy                            | `Y`                                        |
+| Allow SAM CLI IAM role creation                          | `Y`                                        |
+| Capabilities                                             | premi Invio per accettare `CAPABILITY_IAM` |
+| Disable rollback                                         | `N`                                        |
+| CreateOrderFunction has no authentication. Is this okay? | `Y`                                        |
+| GetOrderFunction has no authentication. Is this okay?    | `Y`                                        |
+| Save arguments to configuration file                     | `Y`                                        |
+| SAM configuration file                                   | premi Invio per accettare `samconfig.toml` |
+| SAM configuration environment                            | premi Invio per accettare `default`        |
+
+Le due risposte sull'autenticazione devono essere `Y`: premendo solo Invio viene
+scelto il valore predefinito `N` e SAM termina con `Security Constraints Not
+Satisfied`. Gli endpoint sono pubblici intenzionalmente solo per questo lab.
+
+`Allow SAM CLI IAM role creation: Y` conferma la capability del deploy, ma non
+assegna nuovi permessi al Learner Lab. Prima di confermare il change set verifica
+che non compaiano `CreateOrderFunctionRole` o `GetOrderFunctionRole`: le funzioni
+devono riusare `LabRole` come definito nello Step 2.
+
+Poiche' le risposte vengono salvate in `samconfig.toml`, dai deploy successivi usa:
+
+```bash
+sam deploy
+```
 
 ### Step 8 - Testare l'API live
 
@@ -314,6 +336,11 @@ sam deploy --guided --stack-name monitored-api-lab18
 
 Anche questo template riusa `LabRole`: nel change set non deve comparire una
 risorsa `ProcessFunctionRole`.
+
+Nel deploy guidato rispondi come nello Step 7, usando `monitored-api-lab18` come
+stack name e rispondendo `Y` alla domanda
+`ProcessFunction has no authentication. Is this okay?`. Rispondi `N` a
+`Disable rollback` e salva la configurazione quando richiesto.
 
 ### Step 10 - Generare traffico di test
 
@@ -426,18 +453,19 @@ filter @message like /ERROR/
 
 ## Troubleshooting rapido
 
-| Problema                              | Soluzione                                                                       |
-| ------------------------------------- | ------------------------------------------------------------------------------- |
-| "sam: command not found"              | In Cloud9 e pre-installato. Altrimenti: `pip install aws-sam-cli`               |
-| "No AWS credentials"                  | Esegui `aws configure` o verifica che il Learner Lab sia attivo                 |
+| Problema                                                | Soluzione                                                                                                                                  |
+| ------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| "sam: command not found"                                | In Cloud9 e pre-installato. Altrimenti: `pip install aws-sam-cli`                                                                          |
+| "No AWS credentials"                                    | Esegui `aws configure` o verifica che il Learner Lab sia attivo                                                                            |
 | `CREATE_FAILED` su `*FunctionRole` con `iam:CreateRole` | Il template non sta usando `LabRole`: aggiungi `Role: !Sub arn:${AWS::Partition}:iam::${AWS::AccountId}:role/LabRole` e rimuovi `Policies` |
-| Stack in `ROLLBACK_COMPLETE`          | Elimina lo stack fallito con `sam delete --stack-name order-api-lab18 --no-prompts`, poi ripeti `sam deploy --guided` |
-| 403 Forbidden sull'API                | L'API non ha autorizzazione configurata (atteso per questo lab)                 |
-| "Table not found" durante test locale | SAM local non crea DynamoDB; testa direttamente dopo il deploy                  |
-| Logs Insights vuoto                   | Aspetta 1-2 minuti dopo aver generato traffico; seleziona il log group corretto |
-| Nessuna metrica Lambda                | Le metriche appaiono dopo la prima invocazione; aspetta qualche minuto          |
-| Stack deploy fallisce                 | Controlla CloudFormation Events per il messaggio di errore specifico            |
-| Allarme in INSUFFICIENT_DATA          | La metrica non ha ancora dati; genera qualche invocazione                       |
+| Stack in `ROLLBACK_COMPLETE`                            | Elimina lo stack fallito con `sam delete --stack-name order-api-lab18 --no-prompts`, poi ripeti `sam deploy --guided`                      |
+| `Security Constraints Not Satisfied`                    | Ripeti `sam deploy --guided` e rispondi `Y` a ogni domanda `has no authentication. Is this okay?`; Invio da solo seleziona `N`             |
+| 403 Forbidden sull'API                                  | L'API non ha autorizzazione configurata (atteso per questo lab)                                                                            |
+| "Table not found" durante test locale                   | SAM local non crea DynamoDB; testa direttamente dopo il deploy                                                                             |
+| Logs Insights vuoto                                     | Aspetta 1-2 minuti dopo aver generato traffico; seleziona il log group corretto                                                            |
+| Nessuna metrica Lambda                                  | Le metriche appaiono dopo la prima invocazione; aspetta qualche minuto                                                                     |
+| Stack deploy fallisce                                   | Controlla CloudFormation Events per il messaggio di errore specifico                                                                       |
+| Allarme in INSUFFICIENT_DATA                            | La metrica non ha ancora dati; genera qualche invocazione                                                                                  |
 
 ## Cleanup obbligatorio
 
