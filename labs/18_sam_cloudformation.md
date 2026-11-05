@@ -31,6 +31,16 @@ cd order-api
 
 ### Step 2 - Modificare il template SAM
 
+Nel Learner Lab non puoi creare nuovi ruoli IAM. Verifica il ruolo gia' disponibile:
+
+```bash
+aws iam get-role --role-name LabRole --query 'Role.Arn' --output text
+```
+
+Il template seguente assegna quel ruolo a ogni funzione tramite la proprieta'
+`Role`. La funzione `!Sub` costruisce l'ARN usando automaticamente account e
+partizione AWS.
+
 Sostituisci il contenuto di `template.yaml`:
 
 ```yaml
@@ -53,9 +63,7 @@ Resources:
     Properties:
       Handler: app.create_order
       CodeUri: src/
-      Policies:
-        - DynamoDBCrudPolicy:
-            TableName: !Ref OrdersTable
+      Role: !Sub arn:${AWS::Partition}:iam::${AWS::AccountId}:role/LabRole
       Events:
         CreateOrder:
           Type: Api
@@ -68,9 +76,7 @@ Resources:
     Properties:
       Handler: app.get_order
       CodeUri: src/
-      Policies:
-        - DynamoDBReadPolicy:
-            TableName: !Ref OrdersTable
+      Role: !Sub arn:${AWS::Partition}:iam::${AWS::AccountId}:role/LabRole
       Events:
         GetOrder:
           Type: Api
@@ -198,7 +204,6 @@ Risposte suggerite:
 - Stack name: `order-api-lab18`
 - Region: `us-east-1`
 - Confirm changes: `Y`
-- Allow SAM CLI IAM role creation: `Y`
 - CreateOrderFunction may not have authorization: `Y`
 - GetOrderFunction may not have authorization: `Y`
 - Save arguments: `Y`
@@ -262,6 +267,7 @@ Resources:
       Runtime: python3.12
       Timeout: 10
       MemorySize: 128
+      Role: !Sub arn:${AWS::Partition}:iam::${AWS::AccountId}:role/LabRole
       Events:
         Process:
           Type: Api
@@ -305,6 +311,9 @@ Build e deploy:
 sam build
 sam deploy --guided --stack-name monitored-api-lab18
 ```
+
+Anche questo template riusa `LabRole`: nel change set non deve comparire una
+risorsa `ProcessFunctionRole`.
 
 ### Step 10 - Generare traffico di test
 
@@ -421,7 +430,8 @@ filter @message like /ERROR/
 | ------------------------------------- | ------------------------------------------------------------------------------- |
 | "sam: command not found"              | In Cloud9 e pre-installato. Altrimenti: `pip install aws-sam-cli`               |
 | "No AWS credentials"                  | Esegui `aws configure` o verifica che il Learner Lab sia attivo                 |
-| Deploy fallisce su IAM                | Seleziona `Y` per "Allow SAM CLI IAM role creation"                             |
+| `CREATE_FAILED` su `*FunctionRole` con `iam:CreateRole` | Il template non sta usando `LabRole`: aggiungi `Role: !Sub arn:${AWS::Partition}:iam::${AWS::AccountId}:role/LabRole` e rimuovi `Policies` |
+| Stack in `ROLLBACK_COMPLETE`          | Elimina lo stack fallito con `sam delete --stack-name order-api-lab18 --no-prompts`, poi ripeti `sam deploy --guided` |
 | 403 Forbidden sull'API                | L'API non ha autorizzazione configurata (atteso per questo lab)                 |
 | "Table not found" durante test locale | SAM local non crea DynamoDB; testa direttamente dopo il deploy                  |
 | Logs Insights vuoto                   | Aspetta 1-2 minuti dopo aver generato traffico; seleziona il log group corretto |
